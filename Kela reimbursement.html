@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Kela reimbursement</title>
+    <style type="text/css">
+        label {
+            display: block;
+            width: 10em;
+            float: left;
+        }
+    </style>
+
+    <script type="text/javascript">
+        // Define a function (1.),  
+        function laskeKelaKorvaus(pituus) {
+
+            if (pituus <= 10) {
+                var korvaus = 8.00
+            }
+            if (pituus > 10 && pituus <= 20) {
+                var korvaus = 11.00
+            }
+            if (pituus > 20 && pituus <= 30) {
+                var korvaus = 13.50
+            }
+            if (pituus > 30 && pituus <= 45) {
+                var korvaus = 16.50
+            }
+            if (pituus > 45 && pituus <= 60) {
+                var korvaus = 21.00
+
+            }
+            return korvaus
+
+        }
+
+
+
+        // Defne a function (2.) 
+        function leftPay(doctorsFee, vakiomaksu, korvaus) {
+            var maksettava = parseInt(doctorsFee) + vakiomaksu - korvaus;
+            return maksettava
+
+        }
+
+
+        // Define a function (3.) 
+        function calculate() {
+            var length = document.getElementById("length").value;
+            var doctorsFee = document.getElementById("doctorsFee").value;
+            var korvaus = laskeKelaKorvaus(length); // korvaus joka tulee ylhäältä.
+            var vakiomaksu = 15.90; //Vakiomaksu
+            
+
+            // Read values from the input fields
+
+            // Call the function (1.) which calculates Kela reimbursement 
+            //var kelanhyvitys = laskeKelaKorvaus();
+            // Call the function (2.) which calculates amount left for the customer to pay
+            var maksettavaa = leftPay(doctorsFee,vakiomaksu, korvaus );
+            // Write the answer on the page, to the answer div, as content of the div
+document.getElementById("answer").innerHTML = "Doctors fee is " +doctorsFee+ "€ <br> Kelas reimbursement is " + korvaus + "€ <br>Office fee is " +vakiomaksu+ "€ <br> Customer need to pay " +maksettavaa+"€"; 
+                      
+console.log(calculate, leftPay,laskeKelaKorvaus);
+        }
+    </script>
+</head>
+
+<body>
+    <h3>Kela reimbursement</h3>
+
+    <form>
+        <p>
+            <label>Length of the visit: </label> <input type="text" name="length" id="length" size="3"> min
+        </p>
+        <p>
+            <label>Doctor’s Fee </label> <input type="text" name="doctorsFee" id="doctorsFee" size="8"> euros
+        </p>
+        <p>
+            <input type="button" value="Calculate" onClick="calculate()">
+        </p>
+    </form>
+
+    <!-- This is the target where the JavaScript will write the answer -->
+    <div id="answer"></div>
+</body>
+</html>
+
+<!-- test example:
+length = 21, doctorsFee = 69 -> Doctor’s Fee 69.00 euros 
+						Kela reimbursement 13.50 euros
+						Office Fee 15.90 euros
+						Customer needs to pay 71.40 euros
+-->
+
